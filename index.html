@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Q8 Car Customs</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Tangerine:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --asphalt:      #121417;
+        --panel:        #1c2024;
+        --panel-hover:  #20252a;
+        --panel-edge:   #2a2f34;
+        --chrome:       #d7dadd;
+        --chrome-dim:   #8a9096;
+        --amber:        #f2a93b;
+        --amber-dim:    rgba(242, 169, 59, 0.35);
+        --gold:         #d4af37;
+        --gold-shadow:  rgba(212, 175, 55, 0.28);
+        --glow:         rgba(242, 169, 59, 0.10);
+        --grain:        rgba(255, 255, 255, 0.015);
+        --sweep:        rgba(255, 255, 255, 0.08);
+    }
+
+    html.day-theme {
+        --asphalt:      #f4efe4;
+        --panel:        #fffdf8;
+        --panel-hover:  #fbf5e8;
+        --panel-edge:   #e2d8c3;
+        --chrome:       #262220;
+        --chrome-dim:   #746a5c;
+        --amber:        #c9862e;
+        --amber-dim:    rgba(201, 134, 46, 0.35);
+        --gold:         #a9781f;
+        --gold-shadow:  rgba(169, 120, 31, 0.20);
+        --glow:         rgba(201, 134, 46, 0.12);
+        --grain:        rgba(0, 0, 0, 0.02);
+        --sweep:        rgba(255, 255, 255, 0.55);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        background: var(--asphalt);
+        color: var(--chrome);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 24px;
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        position: relative;
+        transition: background 1.2s ease, color 1.2s ease;
+    }
+
+    /* ── Ambient garage-light glow + faint asphalt grain ── */
+    body::before {
+        content: '';
+        position: fixed;
+        top: -20%;
+        left: 50%;
+        width: 900px;
+        height: 900px;
+        transform: translateX(-50%);
+        background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
+        z-index: 0;
+        animation: driftGlow 22s ease-in-out infinite;
+        transition: background 1.2s ease;
+    }
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: repeating-linear-gradient(
+            135deg,
+            var(--grain) 0px,
+            var(--grain) 1px,
+            transparent 1px,
+            transparent 5px
+        );
+        transition: background-image 1.2s ease;
+    }
+    @keyframes driftGlow {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50%      { transform: translateX(-46%) translateY(30px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        body::before { animation: none; }
+    }
+
+    .card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* ── Logo badge ── */
+    .logo {
+        width: clamp(104px, 32vw, 148px);
+        height: auto;
+        margin-bottom: 20px;
+        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
+    }
+
+    /* ── Wordmark ── */
+    .wordmark {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 700;
+        font-size: clamp(1.9rem, 8vw, 2.4rem);
+        letter-spacing: 1px;
+        color: var(--chrome);
+        text-align: center;
+        line-height: 1.05;
+    }
+    .stripe {
+        width: 64px;
+        height: 3px;
+        background: var(--amber);
+        margin: 14px 0 16px;
+        border-radius: 2px;
+    }
+    .coming-soon {
+        font-family: 'Tangerine', cursive;
+        font-weight: 700;
+        font-size: clamp(3.4rem, 18vw, 5rem);
+        color: var(--gold);
+        text-align: center;
+        line-height: 1;
+        margin-bottom: 4px;
+        text-shadow: 0 0 22px var(--gold-shadow);
+    }
+    .tagline {
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        color: var(--chrome-dim);
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    /* ── Link buttons ── */
+    .links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .link-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 16px 20px;
+        background: var(--panel);
+        border: 1px solid var(--panel-edge);
+        border-left: 3px solid var(--amber);
+        border-radius: 8px;
+        color: var(--chrome);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        overflow: hidden;
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 1.2s ease;
+    }
+
+    .link-btn .icon {
+        font-size: 1.25rem;
+        width: 24px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+    .link-btn .fa-instagram { color: #e1306c; }
+    .link-btn .fa-tiktok    { color: #25f4ee; }
+
+    .link-btn .label {
+        flex: 1;
+    }
+    .link-btn .handle {
+        display: block;
+        font-size: 0.78rem;
+        color: var(--chrome-dim);
+        font-weight: 400;
+        margin-top: 1px;
+    }
+
+    /* light-sweep reflection, like a pass of light across a wrapped panel */
+    .link-btn::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -60%;
+        width: 40%; height: 100%;
+        background: linear-gradient(
+            115deg,
+            transparent 0%,
+            var(--sweep) 45%,
+            var(--sweep) 55%,
+            transparent 100%
+        );
+        transform: skewX(-15deg);
+        transition: left 0.65s ease;
+    }
+    .link-btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--amber-dim);
+        background: var(--panel-hover);
+    }
+    .link-btn:hover::after { left: 130%; }
+    .link-btn:active { transform: translateY(0); }
+    .link-btn:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .link-btn, .link-btn::after { transition: none; }
+    }
+
+    @media (max-width: 360px) {
+        .wordmark { font-size: 1.7rem; }
+        .link-btn { padding: 14px 16px; }
+    }
+</style>
+</head>
+<body>
+
+    <div class="card">
+        <img class="logo" src="qcc-logo.png" alt="QCC - Q8 Car Customs">
+        <div class="wordmark">QCC</div>
+        <div class="stripe"></div>
+        <p class="coming-soon">Coming Soon</p>
+        <p class="tagline">Kuwait &middot; 2026/2027</p>
+
+        <div class="links">
+            <a class="link-btn" href="https://www.instagram.com/q8carcustoms" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram icon"></i>
+                <span class="label">Instagram<span class="handle">@q8carcustoms</span></span>
+            </a>
+
+            <a class="link-btn" href="https://www.tiktok.com/@q8carcustoms" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-tiktok icon"></i>
+                <span class="label">TikTok<span class="handle">@q8carcustoms</span></span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function applyTimeTheme() {
+            const hour = new Date().getHours();
+            const isDay = hour >= 6 && hour < 18;
+            document.documentElement.classList.toggle('day-theme', isDay);
+        }
+        applyTimeTheme();
+        setInterval(applyTimeTheme, 60000);
+    </script>
+
+</body>
+</html>
