@@ -1,275 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Q8 Car Customs</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Tangerine:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCC | Q8 Car Customs</title>
+    <!-- Google Fonts: Inter for clean UI, Playfair Display for Classical Elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- DARK THEME (Default / Night) --- */
+        :root {
+            --bg-color: #0c0d10;
+            --card-bg: rgba(20, 21, 26, 0.85);
+            --border-color: rgba(212, 175, 55, 0.2);
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --btn-bg: rgba(255, 255, 255, 0.02);
+            --btn-hover-bg: rgba(212, 175, 55, 0.05);
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            --radial-glow: radial-gradient(circle at 50% 20%, rgba(30, 27, 15, 0.4) 0%, transparent 60%);
+        }
 
-<style>
-    :root {
-        --asphalt:      #121417;
-        --panel:        #1c2024;
-        --panel-hover:  #20252a;
-        --panel-edge:   #2a2f34;
-        --chrome:       #d7dadd;
-        --chrome-dim:   #8a9096;
-        --amber:        #f2a93b;
-        --amber-dim:    rgba(242, 169, 59, 0.35);
-        --gold:         #d4af37;
-        --gold-shadow:  rgba(212, 175, 55, 0.28);
-        --glow:         rgba(242, 169, 59, 0.10);
-        --grain:        rgba(255, 255, 255, 0.015);
-        --sweep:        rgba(255, 255, 255, 0.08);
-    }
+        /* --- LIGHT THEME (Daytime) --- */
+        [data-theme="light"] {
+            --bg-color: #f7f4ed;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(184, 151, 40, 0.3);
+            --gold: #b89728;
+            --gold-light: #8c711a;
+            --gold-glow: rgba(184, 151, 40, 0.15);
+            --text-main: #2c2a29;
+            --text-muted: #6b655f;
+            --btn-bg: rgba(0, 0, 0, 0.02);
+            --btn-hover-bg: rgba(184, 151, 40, 0.08);
+            --shadow: 0 20px 40px rgba(184, 151, 40, 0.12);
+            --radial-glow: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 60%);
+        }
 
-    html.day-theme {
-        --asphalt:      #f4efe4;
-        --panel:        #fffdf8;
-        --panel-hover:  #fbf5e8;
-        --panel-edge:   #e2d8c3;
-        --chrome:       #262220;
-        --chrome-dim:   #746a5c;
-        --amber:        #c9862e;
-        --amber-dim:    rgba(201, 134, 46, 0.35);
-        --gold:         #a9781f;
-        --gold-shadow:  rgba(169, 120, 31, 0.20);
-        --glow:         rgba(201, 134, 46, 0.12);
-        --grain:        rgba(0, 0, 0, 0.02);
-        --sweep:        rgba(255, 255, 255, 0.55);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            perspective: 1000px;
+            background-image: 
+                var(--radial-glow),
+                linear-gradient(rgba(150, 150, 150, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(150, 150, 150, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
 
-    html, body {
-        height: 100%;
-    }
+        .container {
+            max-width: 520px;
+            width: 90%;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: var(--shadow), inset 0 1px 0 rgba(212, 175, 55, 0.1);
+            animation: fadeIn 1s ease-out;
+            transform-style: preserve-3d;
+        }
 
-    body {
-        background: var(--asphalt);
-        color: var(--chrome);
-        font-family: 'Inter', 'Segoe UI', sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 24px;
-        padding-top: max(24px, env(safe-area-inset-top));
-        padding-bottom: max(24px, env(safe-area-inset-bottom));
-        overflow-x: hidden;
-        position: relative;
-        transition: background 1.2s ease, color 1.2s ease;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* ── Ambient garage-light glow + faint asphalt grain ── */
-    body::before {
-        content: '';
-        position: fixed;
-        top: -20%;
-        left: 50%;
-        width: 900px;
-        height: 900px;
-        transform: translateX(-50%);
-        background: radial-gradient(circle, var(--glow) 0%, transparent 60%);
-        z-index: 0;
-        animation: driftGlow 22s ease-in-out infinite;
-        transition: background 1.2s ease;
-    }
-    body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        background-image: repeating-linear-gradient(
-            135deg,
-            var(--grain) 0px,
-            var(--grain) 1px,
-            transparent 1px,
-            transparent 5px
-        );
-        transition: background-image 1.2s ease;
-    }
-    @keyframes driftGlow {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50%      { transform: translateX(-46%) translateY(30px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        body::before { animation: none; }
-    }
+        .logo {
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+        }
 
-    .card {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 360px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+            background: linear-gradient(135deg, var(--gold-light) 20%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* ── Logo badge ── */
-    .logo {
-        width: clamp(104px, 32vw, 148px);
-        height: auto;
-        margin-bottom: 20px;
-        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
-    }
+        .gold-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto 25px auto;
+            border-radius: 2px;
+        }
 
-    /* ── Wordmark ── */
-    .wordmark {
-        font-family: 'Oswald', sans-serif;
-        font-weight: 700;
-        font-size: clamp(1.9rem, 8vw, 2.4rem);
-        letter-spacing: 1px;
-        color: var(--chrome);
-        text-align: center;
-        line-height: 1.05;
-    }
-    .stripe {
-        width: 64px;
-        height: 3px;
-        background: var(--amber);
-        margin: 14px 0 16px;
-        border-radius: 2px;
-    }
-    .coming-soon {
-        font-family: 'Tangerine', cursive;
-        font-weight: 700;
-        font-size: clamp(3.4rem, 18vw, 5rem);
-        color: var(--gold);
-        text-align: center;
-        line-height: 1;
-        margin-bottom: 4px;
-        text-shadow: 0 0 22px var(--gold-shadow);
-    }
-    .tagline {
-        font-size: 0.82rem;
-        letter-spacing: 2px;
-        color: var(--chrome-dim);
-        text-align: center;
-        margin-bottom: 40px;
-    }
+        .coming-soon {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px var(--gold-glow);
+        }
 
-    /* ── Link buttons ── */
-    .links {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
 
-    .link-btn {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        width: 100%;
-        padding: 16px 20px;
-        background: var(--panel);
-        border: 1px solid var(--panel-edge);
-        border-left: 3px solid var(--amber);
-        border-radius: 8px;
-        color: var(--chrome);
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 500;
-        letter-spacing: 0.3px;
-        overflow: hidden;
-        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 1.2s ease;
-    }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--btn-bg);
+            border: 1px solid var(--border-color);
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
 
-    .link-btn .icon {
-        font-size: 1.25rem;
-        width: 24px;
-        text-align: center;
-        flex-shrink: 0;
-    }
-    .link-btn .fa-instagram { color: #e1306c; }
-    .link-btn .fa-tiktok    { color: #25f4ee; }
+        .btn i {
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
 
-    .link-btn .label {
-        flex: 1;
-    }
-    .link-btn .handle {
-        display: block;
-        font-size: 0.78rem;
-        color: var(--chrome-dim);
-        font-weight: 400;
-        margin-top: 1px;
-    }
+        .btn:hover {
+            background: var(--btn-hover-bg);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px var(--gold-glow);
+            transform: translateY(-2px);
+        }
 
-    /* light-sweep reflection, like a pass of light across a wrapped panel */
-    .link-btn::after {
-        content: '';
-        position: absolute;
-        top: 0; left: -60%;
-        width: 40%; height: 100%;
-        background: linear-gradient(
-            115deg,
-            transparent 0%,
-            var(--sweep) 45%,
-            var(--sweep) 55%,
-            transparent 100%
-        );
-        transform: skewX(-15deg);
-        transition: left 0.65s ease;
-    }
-    .link-btn:hover {
-        transform: translateY(-2px);
-        border-color: var(--amber-dim);
-        background: var(--panel-hover);
-    }
-    .link-btn:hover::after { left: 130%; }
-    .link-btn:active { transform: translateY(0); }
-    .link-btn:focus-visible {
-        outline: 2px solid var(--amber);
-        outline-offset: 2px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .link-btn, .link-btn::after { transition: none; }
-    }
-
-    @media (max-width: 360px) {
-        .wordmark { font-size: 1.7rem; }
-        .link-btn { padding: 14px 16px; }
-    }
-</style>
+        .footer-info {
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="card">
-        <img class="logo" src="qcc-logo.png" alt="QCC - Q8 Car Customs">
-        <div class="wordmark">QCC</div>
-        <div class="stripe"></div>
-        <p class="coming-soon">Coming Soon</p>
-        <p class="tagline">Kuwait &middot; 2026/2027</p>
+    <script>
+        // Automatic Theme Switcher based on local time
+        // Sets light theme between 6:00 AM (06:00) and 6:00 PM (18:00)
+        const currentHour = new Date().getHours();
+        if (currentHour >= 6 && currentHour < 18) {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 
-        <div class="links">
-            <a class="link-btn" href="https://www.instagram.com/q8carcustoms" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-instagram icon"></i>
-                <span class="label">Instagram<span class="handle">@q8carcustoms</span></span>
-            </a>
+    <div class="container">
+        <img src="qcc-logo.png" alt="QCC Logo" class="logo" onerror="this.style.display='none'">
+        <h1>QCC</h1>
+        <div class="gold-divider"></div>
+        
+        <div class="coming-soon">Coming Soon</div>
 
-            <a class="link-btn" href="https://www.tiktok.com/@q8carcustoms" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-tiktok icon"></i>
-                <span class="label">TikTok<span class="handle">@q8carcustoms</span></span>
+        <div class="links-grid">
+            <a href="https://www.instagram.com/q8carcustoms" class="btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram &bull; <strong>@q8carcustoms</strong></span>
             </a>
+            <a href="https://www.tiktok.com/@q8carcustoms" class="btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok &bull; <strong>@q8carcustoms</strong></span>
+            </a>
+        </div>
+
+        <div class="footer-info">
+            Kuwait | Precision Automotive Art | 2026-2027
         </div>
     </div>
 
     <script>
-        function applyTimeTheme() {
-            const hour = new Date().getHours();
-            const isDay = hour >= 6 && hour < 18;
-            document.documentElement.classList.toggle('day-theme', isDay);
-        }
-        applyTimeTheme();
-        setInterval(applyTimeTheme, 60000);
-    </script>
+        // Subtle classical interactive tilt effect
+        const container = document.querySelector('.container');
 
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            container.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            container.style.transition = 'transform 0.5s ease';
+        });
+
+        container.addEventListener('mouseenter', () => {
+            container.style.transition = 'none';
+        });
+    </script>
 </body>
 </html>
